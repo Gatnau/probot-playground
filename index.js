@@ -13,6 +13,16 @@ module.exports = (app) => {
     return context.octokit.issues.createComment(issueComment);
   });
 
+  app.on("pulls.created", async (context) => {
+    
+    options = { reviewers: ['QATeam']};
+    
+    return context.octokit.request_pull_request_review(
+      context.repo.repo, 
+      context.pullRequest.pullRequest, 
+      options);
+  });
+
   // For more information on building apps:
   // https://probot.github.io/docs/
 
